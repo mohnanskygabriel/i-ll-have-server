@@ -7,12 +7,12 @@ import lombok.experimental.Wither;
 import javax.persistence.*;
 
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
 @Builder(toBuilder = true)
+@Entity
 public class Product {
 
     @Wither

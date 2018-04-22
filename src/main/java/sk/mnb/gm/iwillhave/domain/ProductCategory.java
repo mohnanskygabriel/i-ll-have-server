@@ -9,12 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
 @Builder(toBuilder = true)
+@Entity
 class ProductCategory {
 
     @Wither
