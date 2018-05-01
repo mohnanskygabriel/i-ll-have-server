@@ -20,6 +20,7 @@ public class ProductController {
 
     @GetMapping(path = "/all")
     private ResponseEntity getAllProducts() {
+
         return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
     }
 

@@ -1,6 +1,12 @@
 package sk.mnb.gm.iwillhave.domain;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.Value;
+import lombok.experimental.Accessors;
 import lombok.experimental.Wither;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -8,14 +14,20 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+import static lombok.AccessLevel.PRIVATE;
+import static lombok.AccessLevel.PROTECTED;
 
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder(toBuilder = true)
 @Entity
 @Table(name = "restaurant_order")
+@Value
+@Accessors(fluent = true)
+@NoArgsConstructor(access = PROTECTED, force = true)
+@AllArgsConstructor(access = PRIVATE)
+@Builder(toBuilder = true)
+@JsonAutoDetect(fieldVisibility = ANY)
+@JsonInclude(NON_NULL)
 public class Order {
 
     @Id
@@ -23,8 +35,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @Column(name = "restaurant_table")
-    Long table;
+    Long restaurantTable;
 
     @CreatedDate
     Timestamp createdDate;
@@ -33,9 +44,11 @@ public class Order {
 
     boolean payed;
 
-    @ManyToMany
-    @JoinTable(name = "order_product")
-    List<Product> products;
+    @OneToMany
+    @JoinTable(name = "order_product",
+            joinColumns = @JoinColumn(name = "restaurant_order", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "product", referencedColumnName = "id"))
+    List<Product> product;
 
 
 }

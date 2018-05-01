@@ -7,32 +7,26 @@ import lombok.*;
 import lombok.experimental.Accessors;
 import lombok.experimental.Wither;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Value
-@Accessors(fluent = true)
-@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @Builder(toBuilder = true)
+@Accessors(fluent = true)
 @JsonAutoDetect(fieldVisibility = ANY)
 @JsonInclude(NON_NULL)
 @Entity
-public class Product {
+public class RestaurantTable {
 
-    @Wither
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
-
-    String name;
-
-    @OneToOne
-    ProductCategory category;
-
-    double price;
+    @Wither
+    private Long id;
+    private String name;
+    private String password;
 
 }
-
