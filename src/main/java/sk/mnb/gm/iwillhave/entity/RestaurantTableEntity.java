@@ -22,7 +22,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @Accessors(fluent = true)
 @JsonAutoDetect(fieldVisibility = ANY)
 @JsonInclude(NON_NULL)
-@Entity
+@Entity(name = "restaurantTable")
 public class RestaurantTableEntity {
 
     @Id

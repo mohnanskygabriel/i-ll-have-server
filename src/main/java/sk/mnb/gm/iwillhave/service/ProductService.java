@@ -2,29 +2,38 @@ package sk.mnb.gm.iwillhave.service;
 
 
 import lombok.AllArgsConstructor;
+import lombok.val;
 import org.springframework.stereotype.Service;
 import sk.mnb.gm.iwillhave.domain.Product;
+import sk.mnb.gm.iwillhave.mapper.ProductEntityToDomainMapper;
 import sk.mnb.gm.iwillhave.repository.ProductRepository;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
 public class ProductService {
 
+    private ProductEntityToDomainMapper productEntityToDomainMapper;
     private ProductRepository productRepository;
 
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        val productList = new LinkedList<Product>();
+        productRepository.findAll().forEach(productEntity ->
+                productList.addLast(productEntityToDomainMapper.apply(productEntity)));
+        return productList;
     }
 
-    public Optional getProductById(Long id) {
-        return productRepository.findById(id);
+    public Optional<Product> getProductById(Long id) {
+        return productRepository.findById(id).map(productEntity -> productEntityToDomainMapper.apply(productEntity));
     }
 
-    public Optional getProductByCategory(Long categoryId) {
-        return productRepository.findByCategoryId(categoryId);
+    public Optional<Stream<Product>> getProductByCategory(Long categoryId) {
+        return productRepository.findByCategoryId(categoryId).map(productEntities ->
+                productEntities.stream().map(productEntity -> productEntityToDomainMapper.apply(productEntity)));
     }
 
 }

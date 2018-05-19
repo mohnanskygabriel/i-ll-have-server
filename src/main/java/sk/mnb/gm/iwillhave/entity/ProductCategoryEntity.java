@@ -23,8 +23,8 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @Builder(toBuilder = true)
 @JsonAutoDetect(fieldVisibility = ANY)
 @JsonInclude(NON_NULL)
-@Entity
-class ProductCategoryEntity {
+@Entity(name = "ProductCategory")
+public class ProductCategoryEntity {
 
     @Wither
     @Id

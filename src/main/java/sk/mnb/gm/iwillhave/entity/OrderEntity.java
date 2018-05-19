@@ -20,7 +20,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 
-@Entity
+@Entity(name = "Order")
 @Table(name = "restaurant_order")
 @Value
 @Accessors(fluent = true)

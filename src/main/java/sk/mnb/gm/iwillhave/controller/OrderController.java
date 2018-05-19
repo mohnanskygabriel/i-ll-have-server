@@ -1,16 +1,17 @@
 package sk.mnb.gm.iwillhave.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.val;
-import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import sk.mnb.gm.iwillhave.domain.Order;
 import sk.mnb.gm.iwillhave.service.OrderService;
 import sk.mnb.gm.iwillhave.service.RestaurantTableService;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -22,46 +23,37 @@ public class OrderController {
 
     @GetMapping(path = "/table/{tableId}")
     public ResponseEntity getOrdersByRestaurantTable(@PathVariable Long tableId) {
-        val responseOptional = orderService.getOrdersByTable(tableId);
-        if (responseOptional.isPresent()) {
-            return new ResponseEntity<>(responseOptional.get(), HttpStatus.OK);
-        }
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+        return orderService.getOrdersByTable(tableId).map(orderStream ->
+                new ResponseEntity<>(orderStream, HttpStatus.OK)).orElseGet(() ->
+                new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping(path = "/all")
-    public ResponseEntity getAllOrders() {
-        val allOrders = new ArrayList<>();
-        orderService.getAllOrders().forEach(allOrders::add);
-        return new ResponseEntity<>(allOrders, HttpStatus.OK);
+    public List<Order> getAllOrders() {
+        return orderService.getAllOrders();
     }
 
     @GetMapping(path = "/notpayed")
     public ResponseEntity getNotPayedOrders() {
-        val notPayedOrders = orderService.getNotPayedOrders();
-        if (notPayedOrders.isPresent()) {
-            return new ResponseEntity<>(notPayedOrders.get(), HttpStatus.OK);
-        }
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+        return orderService.getNotPayedOrders().map(orderStream ->
+                new ResponseEntity<>(orderStream, HttpStatus.OK)).orElseGet(() ->
+                new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping(path = "/table/{tableId}/notpayed")
     public ResponseEntity getNotPayedOrdersByRestaurantTable(@PathVariable Long tableId) {
-        val responseOptional = orderService.getNotPayedOrdersByRestaurantTableId(tableId);
-        if (responseOptional.isPresent()) {
-            return new ResponseEntity<>(responseOptional.get(), HttpStatus.OK);
-        }
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+        return orderService.getNotPayedOrdersByRestaurantTableId(tableId).map(orderStream ->
+                new ResponseEntity<>(orderStream, HttpStatus.OK)).orElseGet(() ->
+                new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping(path = "/create")
+   /* @PostMapping(path = "/create")
     public ResponseEntity createOrder(@RequestBody Order order) {
         if (restaurantTableService.checkPassword(order.restaurantTable(), "a1")) {
             return new ResponseEntity<>(orderService.save(order), HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);
-
-    }
+    }*/
 
 
 }

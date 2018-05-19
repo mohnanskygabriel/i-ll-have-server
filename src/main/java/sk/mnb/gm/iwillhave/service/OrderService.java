@@ -2,36 +2,50 @@ package sk.mnb.gm.iwillhave.service;
 
 
 import lombok.AllArgsConstructor;
+import lombok.val;
 import org.springframework.stereotype.Service;
 import sk.mnb.gm.iwillhave.domain.Order;
+import sk.mnb.gm.iwillhave.mapper.OrderEntityToDomainMapper;
+import sk.mnb.gm.iwillhave.mapper.OrderToEntityMapper;
 import sk.mnb.gm.iwillhave.repository.OrderRepository;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
 public class OrderService {
 
-    OrderRepository orderRepository;
+    private OrderToEntityMapper orderToEntityMapper;
+    private OrderEntityToDomainMapper orderEntityToDomainMapper;
+    private OrderRepository orderRepository;
 
-    public Optional getOrdersByTable(Long tableId) {
-        return orderRepository.findByRestaurantTable(tableId);
+    public Optional<Stream<Order>> getOrdersByTable(Long tableId) {
+        return orderRepository.findByRestaurantTable(tableId).map(orderEntities ->
+                orderEntities.stream().map(orderEntity -> orderEntityToDomainMapper.apply(orderEntity)));
     }
 
-    public Iterable<Order> getAllOrders() {
-        return orderRepository.findAll();
+    public List<Order> getAllOrders() {
+        val listOfOrders = new LinkedList<Order>();
+        orderRepository.findAll().forEach(
+                orderEntity -> listOfOrders.addLast(orderEntityToDomainMapper.apply(orderEntity)));
+        return listOfOrders;
     }
 
-    public Optional getNotPayedOrders() {
-        return orderRepository.findByPayed(false);
+    public Optional<Stream<Order>> getNotPayedOrders() {
+        return orderRepository.findByPayed(false).map(orderEntities ->
+                orderEntities.stream().map(orderEntity -> orderEntityToDomainMapper.apply(orderEntity)));
     }
 
-    public Optional getNotPayedOrdersByRestaurantTableId(Long restaurantTableId) {
-        return orderRepository.findByPayedAndRestaurantTable(false, restaurantTableId);
+    public Optional<Stream<Order>> getNotPayedOrdersByRestaurantTableId(Long restaurantTableId) {
+        return orderRepository.findByPayedAndRestaurantTable(false, restaurantTableId).map(orderEntities ->
+                orderEntities.stream().map(orderEntity -> orderEntityToDomainMapper.apply(orderEntity)));
     }
 
     public Order save(Order order) {
-        return orderRepository.save(order);
+        return orderEntityToDomainMapper.apply(orderRepository.save(orderToEntityMapper.apply(order)));
     }
 
 
