@@ -26,5 +26,10 @@ public class RestaurantTableController {
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping(path = "/all")
+    public ResponseEntity getAllTableNames() {
+        return new ResponseEntity(restaurantTableService.getAllTableNames(), HttpStatus.OK);
+    }
+
 
 }
