@@ -1,4 +1,4 @@
-package sk.mnb.gm.iwillhave.domain;
+package sk.mnb.gm.iwillhave.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -23,7 +23,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @JsonAutoDetect(fieldVisibility = ANY)
 @JsonInclude(NON_NULL)
 @Entity
-public class RestaurantTable {
+public class RestaurantTableEntity {
 
     @Id
     @Wither

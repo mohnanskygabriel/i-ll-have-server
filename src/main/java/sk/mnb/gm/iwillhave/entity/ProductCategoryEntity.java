@@ -1,4 +1,4 @@
-package sk.mnb.gm.iwillhave.domain;
+package sk.mnb.gm.iwillhave.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -15,21 +15,22 @@ import javax.persistence.Id;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
+
 @Value
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
-@Builder(toBuilder = true)
 @Accessors(fluent = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder(toBuilder = true)
 @JsonAutoDetect(fieldVisibility = ANY)
 @JsonInclude(NON_NULL)
 @Entity
-public class RestaurantTable {
+class ProductCategoryEntity {
 
-    @Id
     @Wither
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String password;
+    Long id;
+
+    String category;
 
 }

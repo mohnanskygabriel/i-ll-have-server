@@ -1,4 +1,4 @@
-package sk.mnb.gm.iwillhave.domain;
+package sk.mnb.gm.iwillhave.entity;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -29,7 +29,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Builder(toBuilder = true)
 @JsonAutoDetect(fieldVisibility = ANY)
 @JsonInclude(NON_NULL)
-public class Order {
+public class OrderEntity {
 
     @Id
     @Wither
@@ -50,7 +50,7 @@ public class Order {
     @JoinTable(name = "order_product",
             joinColumns = @JoinColumn(name = "restaurant_order", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "product", referencedColumnName = "id"))
-    List<Product> product;
+    List<ProductEntity> product;
 
 
 }

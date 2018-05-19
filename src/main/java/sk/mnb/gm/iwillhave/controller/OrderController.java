@@ -2,6 +2,7 @@ package sk.mnb.gm.iwillhave.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.val;
+import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +54,7 @@ public class OrderController {
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping
+    @PostMapping(path = "/create")
     public ResponseEntity createOrder(@RequestBody Order order) {
         if (restaurantTableService.checkPassword(order.restaurantTable(), "a1")) {
             return new ResponseEntity<>(orderService.save(order), HttpStatus.OK);

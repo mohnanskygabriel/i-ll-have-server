@@ -24,7 +24,7 @@ public class Product {
 
     @Wither
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String name;
