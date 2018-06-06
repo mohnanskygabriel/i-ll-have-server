@@ -12,6 +12,7 @@ public class OrderToEntityMapper implements Function<Order, OrderEntity> {
 
 
     private ProductToEntityMapper productToEntityMapper = new ProductToEntityMapper();
+    private RestaurantTableToEntityMapper restaurantTableToEntityMapper = new RestaurantTableToEntityMapper();
 
     @Override
     public OrderEntity apply(Order order) {
@@ -22,7 +23,7 @@ public class OrderToEntityMapper implements Function<Order, OrderEntity> {
                 product(
                         order.product().stream().
                                 map(product -> productToEntityMapper.apply(product)).collect(Collectors.toList())).
-                restaurantTable(order.restaurantTable()).
+                restaurantTable(restaurantTableToEntityMapper.apply(order.restaurantTable())).
                 build();
     }
 }

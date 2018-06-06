@@ -36,7 +36,9 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    Long restaurantTable;
+    @ManyToOne
+    @JoinColumn(name = "restaurant_table")
+    RestaurantTableEntity restaurantTable;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

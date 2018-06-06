@@ -2,7 +2,6 @@ package sk.mnb.gm.iwillhave.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
-import sk.mnb.gm.iwillhave.domain.Product;
 import sk.mnb.gm.iwillhave.entity.ProductEntity;
 
 import java.util.List;

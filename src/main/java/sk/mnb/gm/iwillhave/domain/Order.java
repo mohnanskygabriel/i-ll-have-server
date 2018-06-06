@@ -25,7 +25,7 @@ public class Order {
     @Wither
     Long id;
 
-    Long restaurantTable;
+    RestaurantTable restaurantTable;
 
     Date createdDate;
 

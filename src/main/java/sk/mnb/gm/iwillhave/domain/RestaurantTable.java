@@ -2,6 +2,7 @@ package sk.mnb.gm.iwillhave.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -22,6 +23,8 @@ public class RestaurantTable {
     @Wither
     private Long id;
     private String name;
+
+    @JsonIgnore
     private String password;
 
 }

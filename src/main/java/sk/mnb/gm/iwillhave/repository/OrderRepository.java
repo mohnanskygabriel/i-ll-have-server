@@ -1,7 +1,6 @@
 package sk.mnb.gm.iwillhave.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import sk.mnb.gm.iwillhave.domain.Order;
 import sk.mnb.gm.iwillhave.entity.OrderEntity;
 
 import java.util.List;

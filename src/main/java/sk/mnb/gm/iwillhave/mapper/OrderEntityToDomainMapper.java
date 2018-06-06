@@ -12,6 +12,7 @@ public class OrderEntityToDomainMapper implements Function<OrderEntity, Order> {
 
 
     private ProductEntityToDomainMapper productEntityToDomainMapper = new ProductEntityToDomainMapper();
+    private RestaurantTableEntityToDomainMapper restaurantTableEntityToDomainMapper = new RestaurantTableEntityToDomainMapper();
 
     @Override
     public Order apply(OrderEntity orderEntity) {
@@ -20,7 +21,7 @@ public class OrderEntityToDomainMapper implements Function<OrderEntity, Order> {
                 createdDate(orderEntity.createdDate()).
                 payed(orderEntity.payed()).
                 payedDate(orderEntity.payedDate()).
-                restaurantTable(orderEntity.restaurantTable()).
+                restaurantTable(restaurantTableEntityToDomainMapper.apply(orderEntity.restaurantTable())).
                 product(
                         orderEntity.product().stream().
                                 map(productEntity -> productEntityToDomainMapper.apply(productEntity)).
