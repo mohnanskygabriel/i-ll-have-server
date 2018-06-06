@@ -4,7 +4,9 @@ package sk.mnb.gm.iwillhave.domain;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
+import lombok.Value;
 import lombok.experimental.Accessors;
 import lombok.experimental.Wither;
 
@@ -14,8 +16,6 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @Value
 @Accessors(fluent = true)
 @Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @JsonAutoDetect(fieldVisibility = ANY)
 @JsonInclude(NON_NULL)
 public class RestaurantTable {
@@ -24,7 +24,19 @@ public class RestaurantTable {
     private Long id;
     private String name;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
+    public RestaurantTable() {
+        this.id = null;
+        this.name = null;
+        this.password = null;
+    }
+
+    public RestaurantTable(Long id, String name, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+    }
 
 }

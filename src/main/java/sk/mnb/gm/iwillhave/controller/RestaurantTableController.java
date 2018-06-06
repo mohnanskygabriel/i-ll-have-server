@@ -9,6 +9,9 @@ import sk.mnb.gm.iwillhave.service.RestaurantTableService;
 
 import java.util.List;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+
 @RestController
 @RequestMapping(path = "/table")
 @AllArgsConstructor
@@ -26,9 +29,9 @@ public class RestaurantTableController {
     @PostMapping(path = "/check")
     public ResponseEntity checkTablePassword(@RequestBody RestaurantTable table) {
         if (restaurantTableService.checkPassword(table.name(), table.password())) {
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(TRUE, HttpStatus.OK);
         }
-        return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<>(FALSE, HttpStatus.OK);
     }
 
     @GetMapping(path = "/all")

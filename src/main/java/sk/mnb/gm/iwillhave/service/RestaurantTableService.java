@@ -24,9 +24,8 @@ public class RestaurantTableService {
     }
 
     public boolean checkPassword(String tableName, String password) {
-        return restaurantTableRepository.findByName(tableName).map(restaurantTable ->
-                restaurantTable.password().equals(password)).
-                orElse(false);
+        return restaurantTableRepository.findByName(tableName).
+                map(restaurantTableEntity -> restaurantTableEntity.password().equals(password)).orElse(false);
     }
 
     public List<String> getAllTableNames() {
