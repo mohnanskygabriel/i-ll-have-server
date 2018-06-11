@@ -17,6 +17,7 @@ public class OrderToEntityMapper implements Function<Order, OrderEntity> {
     @Override
     public OrderEntity apply(Order order) {
         return OrderEntity.builder().
+                id(order.id()).
                 payed(order.payed()).
                 payedDate(order.payedDate()).
                 createdDate(order.createdDate()).

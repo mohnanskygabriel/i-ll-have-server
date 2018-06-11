@@ -24,12 +24,13 @@ public class ProductEntity {
 
     @Wither
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "pk_product_sequence", sequenceName = "product_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "pk_product_sequence")
     Long id;
 
     String name;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     ProductCategoryEntity category;
 
     double price;

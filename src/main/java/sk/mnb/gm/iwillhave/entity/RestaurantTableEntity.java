@@ -7,10 +7,7 @@ import lombok.*;
 import lombok.experimental.Accessors;
 import lombok.experimental.Wither;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
@@ -27,7 +24,8 @@ public class RestaurantTableEntity {
 
     @Id
     @Wither
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "pk_table_sequence", sequenceName = "restaurant_table_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "pk_table_sequence")
     private Long id;
     private String name;
     private String password;

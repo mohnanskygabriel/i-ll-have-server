@@ -15,6 +15,7 @@ public class ProductToEntityMapper implements Function<Product, ProductEntity> {
     @Override
     public ProductEntity apply(Product product) {
         return ProductEntity.builder().
+                id(product.id()).
                 name(product.name()).
                 category(productCategoryToEntityMapper.apply(product.category())).
                 price(product.price()).

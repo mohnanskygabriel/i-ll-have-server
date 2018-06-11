@@ -6,11 +6,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.Accessors;
 import lombok.experimental.Wither;
+import org.hibernate.annotations.Immutable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
@@ -23,12 +21,13 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @Builder(toBuilder = true)
 @JsonAutoDetect(fieldVisibility = ANY)
 @JsonInclude(NON_NULL)
-@Entity(name = "ProductCategory")
+@Entity(name = "productCategory")
 public class ProductCategoryEntity {
 
     @Wither
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "pk_category_sequence", sequenceName = "product_categorie_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "pk_category_sequence")
     Long id;
 
     String category;

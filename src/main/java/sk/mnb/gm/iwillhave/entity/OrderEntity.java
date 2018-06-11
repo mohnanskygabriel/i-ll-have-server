@@ -33,10 +33,11 @@ public class OrderEntity {
 
     @Id
     @Wither
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "pk_order_sequence", sequenceName = "restaurant_order_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "pk_order_sequence")
     Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "restaurant_table")
     RestaurantTableEntity restaurantTable;
 
@@ -48,7 +49,7 @@ public class OrderEntity {
 
     boolean payed;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "order_product",
             joinColumns = @JoinColumn(name = "restaurant_order", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "product", referencedColumnName = "id"))

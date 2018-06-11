@@ -5,10 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import sk.mnb.gm.iwillhave.domain.Product;
 import sk.mnb.gm.iwillhave.service.ProductService;
 
 @RestController
@@ -40,6 +38,11 @@ public class ProductController {
             return new ResponseEntity<>(optional.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping
+    private ResponseEntity getProductByCategory(@RequestBody Product product) {
+        return new ResponseEntity<>(productService.saveNewProduct(product), HttpStatus.OK);
     }
 
 }

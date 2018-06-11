@@ -8,11 +8,13 @@ import sk.mnb.gm.iwillhave.domain.RestaurantTable;
 import sk.mnb.gm.iwillhave.mapper.RestaurantTableEntityToDomainMapper;
 import sk.mnb.gm.iwillhave.repository.RestaurantTableRepository;
 
+import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class RestaurantTableService {
     private RestaurantTableEntityToDomainMapper restaurantTableEntityToDomainMapper;
