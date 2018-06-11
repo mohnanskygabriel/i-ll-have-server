@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.Accessors;
 import lombok.experimental.Wither;
-import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 

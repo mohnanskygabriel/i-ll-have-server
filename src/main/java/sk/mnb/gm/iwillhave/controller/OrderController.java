@@ -48,12 +48,18 @@ public class OrderController {
 
     @PostMapping(path = "/create")
     public ResponseEntity createOrder(@RequestBody Order order) {
-        log.info("Product:" + order.product().get(0).name());
         if (restaurantTableService.checkPassword(order.restaurantTable().name(), order.restaurantTable().password())) {
             return new ResponseEntity<>(orderService.save(order), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
+    }
+
+    @GetMapping(path = "/{orderId}")
+    public ResponseEntity getOrderById(@PathVariable Long orderId) {
+        return orderService.getOrderById(orderId).map(order ->
+                new ResponseEntity<>(order, HttpStatus.OK)).orElseGet(() ->
+                new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 

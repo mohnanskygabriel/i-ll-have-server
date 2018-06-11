@@ -51,4 +51,7 @@ public class OrderService {
     }
 
 
+    public Optional<Order> getOrderById(Long orderId) {
+        return orderRepository.findById(orderId).map(orderEntityToDomainMapper::apply);
+    }
 }

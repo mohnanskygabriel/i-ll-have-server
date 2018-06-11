@@ -1,5 +1,6 @@
 package sk.mnb.gm.iwillhave.mapper;
 
+import lombok.val;
 import org.springframework.stereotype.Component;
 import sk.mnb.gm.iwillhave.domain.Product;
 import sk.mnb.gm.iwillhave.entity.ProductEntity;
@@ -14,11 +15,17 @@ public class ProductToEntityMapper implements Function<Product, ProductEntity> {
 
     @Override
     public ProductEntity apply(Product product) {
-        return ProductEntity.builder().
+        val category = product.category();
+        val entity = ProductEntity.builder().
                 id(product.id()).
                 name(product.name()).
-                category(productCategoryToEntityMapper.apply(product.category())).
                 price(product.price()).
                 build();
+        if (category == null) {
+            return entity;
+        }
+
+        return entity.toBuilder().category(productCategoryToEntityMapper.apply(category)).build();
+
     }
 }

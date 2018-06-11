@@ -12,10 +12,8 @@ public class ProductCategoryEntityToDomainMapper implements Function<ProductCate
 
     @Override
     public ProductCategory apply(ProductCategoryEntity productCategoryEntity) {
-
         return ProductCategory.builder().
                 id(productCategoryEntity.id()).
                 category(productCategoryEntity.category()).build();
-
     }
 }

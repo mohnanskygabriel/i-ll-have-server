@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 @Component
 public class OrderToEntityMapper implements Function<Order, OrderEntity> {
 
-
     private ProductToEntityMapper productToEntityMapper = new ProductToEntityMapper();
     private RestaurantTableToEntityMapper restaurantTableToEntityMapper = new RestaurantTableToEntityMapper();
 
